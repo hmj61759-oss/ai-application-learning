@@ -56,7 +56,7 @@
 
 **本周产出**：能独立创建 Python 项目、管理依赖、用 git 推送代码
 
-### Week 2 (07/21 - 07/27) · Python 进阶 + 后端入门 + LLM API
+### Week 2 (07/21 - 07/27) · Python 进阶 + 后端入门 + LLM API + TypeScript 速成
 
 **Python 编程（能力树 §1）**
 
@@ -82,6 +82,22 @@
 | requests / httpx 库 | 高 | 调用 LLM API |
 | Prompt 工程基础 | 高 | 面试高频 |
 | JSON 数据处理 | 中 | API 交互 |
+
+**TypeScript 速成（为读 Pi 源码准备）**
+
+| 知识点 | 优先级 | 关联面试/项目 |
+|--------|--------|---------------|
+| TS 基本类型 / interface / type | 高 | 读 Pi 源码必备 |
+| 泛型 / 联合类型 / 字面量类型 | 中 | Pi 大量使用 |
+| ES Module（import/export） | 中 | Pi 是 ESM 项目 |
+| npm workspaces（monorepo 概念） | ⚡ | 理解 Pi 项目结构 |
+
+**Pi 框架穿插（周末 30-60min）**
+
+| 内容 | 目的 |
+|------|------|
+| 读 `packages/ai/README.md`（重点 Quick Start） | 理解统一 LLM API 设计 |
+| 读 `packages/ai/src/types.ts`（Message/Tool 类型） | 对比 Python 的 LLM 调用，理解通用概念 |
 
 **本周产出**：用 FastAPI 写一个调用 LLM API 的 Web 接口（如：智能问答 API）
 
@@ -110,6 +126,14 @@
 | 知识点 | 优先级 | 关联面试/项目 |
 |--------|--------|---------------|
 | **Ascet Agent 项目架构梳理** | 高 | 简历核心 |
+
+**Pi 框架穿插（周末 60min）**
+
+| 内容 | 目的 |
+|------|------|
+| 读 `packages/agent/README.md`（事件序列图） | 理解 Agent 循环：prompt→LLM→工具调用→结果→下一轮 |
+| 读 `packages/agent/src/types.ts`（AgentState/AgentTool） | 对比 LLM 基础概念，看真实实现 |
+| 读 `packages/ascet-extension/src/index.ts`（84行） | **第一次看你的实习项目代码**，理解扩展入口 |
 
 **本周产出**：画出 Ascet 项目的架构图，写一份项目分析文档初稿
 
@@ -163,6 +187,17 @@
 |--------|--------|---------------|
 | LangChain / LlamaIndex 框架 | 中 | 工程化 |
 | **Ascet Agent 深度分析** | 高 | 简历核心 |
+
+**Pi 框架穿插（本周重点，周末 2-3h）**
+
+| 内容 | 目的 |
+|------|------|
+| 读 `packages/agent/src/agent-loop.ts` | 理解 Agent 循环的真实实现（两层循环+工具执行） |
+| 读 `packages/ascet-extension/src/tools/registry.ts` | 看 13 个 ASCET 工具如何注册 |
+| 深读一个工具：`packages/ascet-extension/src/tools/status/` | 理解 AgentTool 的完整实现 |
+| 读 `packages/ascet-extension/src/scheduler/` | 理解为什么 ASCET 工具要串行化（调度器） |
+
+> **本周是 Pi 学习的核心周**：你学的 Agent/Function Calling 概念和 Pi 源码直接对应，形成"概念→真实项目"闭环。面试讲项目时能说出 Agent 循环的细节。
 
 **本周产出**：用框架实现一个简单 Agent（带 Memory）；完成 Ascet 项目深度分析文档
 
@@ -243,6 +278,45 @@
 | Redis | 了解概念即可，面试不会深问应用开发岗 |
 | 幂等性 | 后端进阶话题，秋招应用开发岗低频 |
 | TCP/IP 深入 | 了解 HTTP 即可，网络底层低频 |
+
+## Pi 框架学习路径（穿插进行）
+
+> Pi 是 Ascet Agent 的底层框架（TypeScript），不单独开周，而是每周基础学习后用 30-60min 读对应源码。
+
+### Pi 架构总览
+
+```
+Pi = 4 层
+├── pi-ai          统一 LLM API（多 Provider，工具定义，流式）
+├── pi-agent-core  Agent 运行时（状态管理，工具循环，事件流）
+├── pi-coding-agent CLI + 扩展系统 + 内置工具
+└── ascet-extension 你的实习项目（13个工具 + Bosch LLM Provider + 调度器）
+```
+
+### 穿插时间表
+
+| 周次 | 基础学习 | Pi 对应模块 | 读什么 |
+|------|----------|------------|--------|
+| W2 | LLM API 调用 | `pi-ai` | README + types.ts（Message/Tool 类型） |
+| W3 | LLM 原理 | `pi-agent-core` + `ascet-extension` | agent README + ASCET 扩展入口（84行） |
+| W5 | Agent + Function Calling | `pi-agent-core` + `ascet-extension` | **重点周**：agent-loop + 工具注册 + 调度器 |
+
+### 学习原则
+
+1. **概念先行**：先用 Python 学会概念（如 Function Calling），再读 TS 源码看实现
+2. **不求全懂**：目标是理解架构和设计思路，不是逐行读懂 TS 代码
+3. **简历导向**：能用自己的话讲清楚"Pi 的 Agent 循环怎么工作""ASCET 扩展怎么注入工具"即可
+4. **笔记落地**：Pi 学习笔记写在 `projects/ascet-agent/` 下
+
+### 关键文件速查
+
+| 想了解 | 看这个文件 |
+|--------|-----------|
+| LLM 统一 API | `packages/ai/README.md` |
+| Agent 循环 | `packages/agent/README.md` + `src/agent-loop.ts` |
+| ASCET 扩展入口 | `packages/ascet-extension/src/index.ts`（84行） |
+| ASCET 工具注册 | `packages/ascet-extension/src/tools/registry.ts` |
+| 扩展系统 | `packages/coding-agent/src/core/extensions/types.ts` |
 
 ## 进度标记说明
 

@@ -42,6 +42,15 @@
 
 建议先用 10 分钟复习今天的易错点（笔记第七节），再开始新内容。
 
+### 额外记录：Pi 框架学习穿插
+
+用户提出边学基础边了解 Pi 框架（Ascet Agent 的底层框架）。已完成：
+- 分析了 Pi 框架完整架构（4层：pi-ai → pi-agent-core → pi-coding-agent → ascet-extension）
+- 更新了 ROADMAP.md，在 W2/W3/W5 穿插 Pi 源码阅读
+- W2 新增 TypeScript 速成（为读 TS 源码准备）
+- 创建了 `projects/ascet-agent/pi-architecture.md` 架构分析文档
+- Pi 学习不单独开周，每周基础学习后用 30-60min 读对应源码
+
 ---
 
 ## 历史会话记录
