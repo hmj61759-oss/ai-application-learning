@@ -1,8 +1,7 @@
-# Week 1 · Python 基础笔记（第1次会话）
+# Week 1 · Python 基础笔记
 
-> 日期：2025-07-17
-> 环境：公司（opencode）
-> 学习内容：conda 环境、数据类型、类型标注、条件判断与循环
+> 第1次会话：2025-07-17（公司 opencode）— conda 环境、数据类型、类型标注、条件判断与循环
+> 第2次会话：2025-07-21（公司 opencode）— 函数、类与面向对象、异常处理
 
 ---
 
@@ -226,10 +225,283 @@ if any(keyword in skill for keyword in ai_keywords):
 
 ---
 
-## 七、我的易错点总结
+## 七、我的易错点总结（第1次会话）
 
 1. **age 加引号** → 要有类型意识，数字不加引号
 2. **append('skill') 加引号** → 存变量值不加引号
 3. **`skill in ai_keywords` 完全匹配** → 要用 `keyword in skill` 做子字符串匹配
 4. **python 找不到文件** → 注意当前工作目录，用完整路径
 5. **编辑器 Run 无法运行** → 编辑器要单独选 Python 解释器
+
+---
+
+# 第2次会话：函数、类与面向对象、异常处理
+
+> 日期：2025-07-21
+> 环境：公司（opencode）
+
+---
+
+## 八、Python 函数
+
+### 基本语法
+
+```python
+def greet(name: str) -> str:
+    """跟某人打招呼"""           # 文档字符串，推荐写
+    return f"你好，{name}！"
+```
+
+- `def` 定义函数
+- `name: str` 参数 + 类型标注
+- `-> str` 返回值类型标注
+- `return` 返回结果；没有 return 则返回 `None`
+
+### 参数的 5 种形式（面试高频）
+
+```python
+# 1. 位置参数（按顺序传）
+def add(a: int, b: int) -> int:
+    return a + b
+
+# 2. 默认参数（有默认值，可不传）
+def greet(name: str, greeting: str = "你好") -> str:
+    return f"{greeting}，{name}！"
+
+# 3. 关键字参数（按名字传，不按顺序）
+greet(greeting="Hello", name="mengjie")
+
+# 4. *args（任意个位置参数，打包成 tuple）
+def sum_all(*numbers: int) -> int:
+    return sum(numbers)
+
+# 5. **kwargs（任意个关键字参数，打包成 dict）
+def show_info(**info: str) -> None:
+    for key, value in info.items():
+        print(f"{key}: {value}")
+```
+
+**默认参数的坑**：必须放在非默认参数后面
+```python
+# ❌ 错误
+def greet(name: str = "hmj", greeting: str) -> str:
+# ✅ 正确
+def greet(greeting: str, name: str = "hmj") -> str:
+```
+
+### Pythonic 写法（面试加分）
+
+```python
+# ❌ 不 Pythonic
+if duplicate == False:
+if len(skills) > 0:
+
+# ✅ Pythonic
+if not duplicate:
+if skills:
+```
+
+**Pythonic** = 用 Python 社区推荐的优雅方式写代码，来自 PEP 8 规范。
+
+---
+
+## 九、Python 类与面向对象
+
+### 为什么需要类？
+
+把**数据和操作数据的函数**打包在一起，不用到处传参数。
+
+```python
+# 函数方式：每次传 skills 列表
+my_skills = []
+add_skill(my_skills, "python")
+
+# 类方式：数据和操作绑定
+manager = SkillManager()
+manager.add("python")
+```
+
+### 基本语法
+
+```python
+class SkillManager:
+    """技能管理器类"""
+    
+    def __init__(self):              # 初始化方法，创建对象时自动调用
+        self.skills: list[str] = []  # 实例属性
+    
+    def add(self, skill: str) -> None:      # 实例方法
+        if skill not in self.skills:
+            self.skills.append(skill)
+    
+    def format(self, prefix: str = "技能") -> str:
+        return f"{prefix}：{', '.join(self.skills)}"
+```
+
+### 关键概念
+
+| 概念 | 说明 |
+|------|------|
+| `class` | 定义类的关键字 |
+| `__init__` | 初始化方法，创建对象时自动调用 |
+| `self` | 指向对象自己，访问属性和方法 |
+| 实例属性 | 每个对象自己的数据，`self.skills` |
+| 实例方法 | 对象可以调用的函数 |
+
+**`self` 的理解**：
+- `self` 就是对象自己，类似 "myself"
+- `self.skills` = "这个对象自己的 skills 列表"
+- 调用时不用传 self，Python 自动传：`manager.add("python")` 实际是 `SkillManager.add(manager, "python")`
+
+### 继承（了解概念）
+
+```python
+class Animal:
+    def __init__(self, name: str):
+        self.name = name
+    def speak(self) -> str:
+        return "..."
+
+class Dog(Animal):           # Dog 继承 Animal
+    def speak(self) -> str:  # 重写父类方法
+        return "汪汪！"
+
+dog = Dog("旺财")
+print(dog.name)      # 旺财（继承自 Animal）
+print(dog.speak())   # 汪汪！（自己的实现）
+```
+
+---
+
+## 十、异常处理
+
+### 为什么需要？
+
+让程序出错时不崩溃，优雅地处理错误。
+
+```python
+# 没有异常处理：程序崩溃
+skills.remove("java")   # ❌ ValueError，程序停止
+
+# 有异常处理：程序继续
+try:
+    skills.remove("java")
+except ValueError:
+    print("技能不存在")
+print("继续执行")   # 会执行
+```
+
+### 基本语法
+
+```python
+try:
+    # 可能出错的代码
+    result = 10 / 0
+except ZeroDivisionError as e:      # 捕获特定异常
+    print(f"出错了：{e}")
+except (ValueError, TypeError) as e: # 捕获多种异常
+    print(f"其他错误：{e}")
+except Exception as e:               # 捕获所有异常（兜底，不推荐滥用）
+    print(f"未知错误：{e}")
+else:
+    # try 没出错时执行（可选）
+    print(f"结果是 {result}")
+finally:
+    # 无论是否出错都执行（可选，常用于清理资源）
+    print("清理工作")
+```
+
+### 常见异常类型（面试可能问）
+
+| 异常 | 什么时候发生 |
+|------|------------|
+| `ValueError` | 值不对，如 `int("abc")` |
+| `TypeError` | 类型不对，如 `"a" + 1` |
+| `KeyError` | 字典 key 不存在 |
+| `IndexError` | 列表索引越界 |
+| `FileNotFoundError` | 文件不存在 |
+| `ZeroDivisionError` | 除以 0 |
+
+### `raise` 主动抛出异常
+
+```python
+def get_skill(self, index: int) -> str:
+    if not self.skills:
+        raise ValueError("技能列表为空")   # 主动报错
+    return self.skills[index]
+```
+
+- `try/except`：**被动**捕获错误
+- `raise`：**主动**制造错误（发现条件不对，主动报错）
+
+### `isinstance()` 类型检查
+
+```python
+isinstance("hello", str)   # True
+isinstance(123, str)       # False
+
+def add_skill(skill: str):
+    if not isinstance(skill, str):
+        raise TypeError("skill 必须是字符串")
+```
+
+### 什么时候用异常处理？
+
+**✅ 该用**：文件读写、网络请求、用户输入、调用外部 API（LLM API 可能报错）
+
+**❌ 不该用**：
+- 用异常控制流程（用 try 代替 if）
+- 捕获所有异常然后 pass（隐藏 bug）
+
+```python
+# ❌ 不好
+try:
+    skills.remove("java")
+except:
+    pass
+
+# ✅ 好
+if "java" in skills:
+    skills.remove("java")
+```
+
+### 判断条件 vs 异常处理
+
+- **能预见的条件**用 `if`（如列表是否为空）
+- **无法预料的错误**用 `try/except`（如索引越界）
+
+```python
+def get_skill(self, index: int) -> str:
+    if not self.skills:                    # 能预见：列表是否为空
+        raise ValueError("技能列表为空")
+    try:
+        return self.skills[index]          # 无法预料：索引是否越界
+    except IndexError:
+        return "索引越界"
+```
+
+---
+
+## 十一、面试速查卡（第2次会话新增）
+
+| 问题 | 参考回答 |
+|------|----------|
+| `*args` 和 `**kwargs` 区别？ | `*args` 收集位置参数成 tuple，`**kwargs` 收集关键字参数成 dict |
+| 默认参数的坑？ | 必须放在非默认参数后面 |
+| `== False` 和 `not` 区别？ | 功能一样，但 `not` 更 Pythonic（PEP 8 推荐） |
+| Pythonic 是什么？ | 用 Python 社区推荐的优雅方式写代码，来自 PEP 8 |
+| `self` 是什么？ | 指向对象自己，访问实例属性和方法，调用时自动传入 |
+| `raise` 和 `try/except` 区别？ | raise 主动抛出，try/except 被动捕获 |
+| `isinstance()` 干什么？ | 判断对象是否是某类型，用于运行时类型检查 |
+| 什么时候用异常处理？ | 文件/网络/用户输入等不可控场景；不用来控制流程 |
+
+---
+
+## 十二、我的易错点总结（第2次会话）
+
+1. **`&` 代替 `and`** → 条件判断用 `and`/`or`/`not`，不用 `&`/`|`（位运算符）
+2. **`return skill` 返回错值** → 函数签名说返回 list，就要 return list，不是 return 字符串
+3. **f-string 引号嵌套** → 内外引号要不同：`f"{prefix}：{', '.join(skills)}"`
+4. **`except:` 空捕获** → 要写具体异常类型，如 `except IndexError:`
+5. **异常处理逻辑顺序** → 空列表访问索引也会抛 IndexError，要先用 if 判断空列表
+6. **`print` 和 `return` 混淆** → print 只是打印，return 才是返回值给调用方

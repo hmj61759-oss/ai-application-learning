@@ -7,53 +7,49 @@
 
 ## 最近一次会话
 
-- **日期**：2025-07-17
+- **日期**：2025-07-21
 - **环境**：公司（opencode）
-- **时长**：约 1.5 小时
-- **所属周次**：Week 1 第1次会话
+- **时长**：约 2 小时
+- **所属周次**：Week 1 第2次会话
 
 ### 今天学了什么
 
-1. **环境管理**：理清了 Python/Conda/Anaconda/venv/uv 的关系，创建了 `ai-learning` conda 环境
-2. **数据类型**：int/float/str/list/tuple/dict/set，list vs tuple vs set 区别
-3. **类型标注**：type hints 语法，为什么 AI 项目要用
-4. **字符串操作**：join 列表转字符串、f-string 格式化、子字符串判断（in 的两种用法）
-5. **条件判断与循环**：if/elif/else、for 循环、标记变量（flag）模式、any() 简化、break/continue
+1. **复习**：in 的两种用法、append 引号问题、flag 模式（全部答对，已掌握）
+2. **Python 函数**：定义、5种参数形式（位置/默认/关键字/*args/**kwargs）、Pythonic 写法
+3. **Python 类与面向对象**：class定义、__init__、self、实例属性/方法、继承概念
+4. **异常处理**：try/except/finally、raise主动抛出、isinstance类型检查、什么时候用异常处理
 
 ### 掌握情况
 
-- ✅ **OK**：数据类型、类型标注语法、f-string、for 循环、条件判断
-- ✅ **OK**：conda 环境创建和激活
+- ✅ **OK**：函数定义和参数、类的基本结构、self概念、异常处理语法
+- ✅ **OK**：复习内容全部答对（in的两种用法、append引号、flag模式）
 - ⚠️ **需要复习**：
-  - `in` 的两种用法（列表完全匹配 vs 字符串子串匹配）——练习中写错了
-  - `append(skill)` vs `append('skill')` ——加引号问题
-  - join 的概念一开始不太理解
-  - flag 标记变量的思路——需要巩固
+  - f-string 引号嵌套容易出错（内外引号要不同）
+  - `&` 和 `and` 的区别（条件判断要用 and）
+  - 异常处理的逻辑顺序（先 if 判断能预见的，再 try/except 处理意外的）
+  - print 和 return 的区别（print 只是打印，return 才是返回值）
 
 ### 遗留问题 / 下次要复习的点
 
-1. 复习 `in` 的两种用法，出一道区分题
-2. flag 模式可以再练一道题巩固
-3. VS Code 选择解释器的操作要记住
+1. f-string 引号嵌套规则要记住
+2. 异常处理的"判断条件 vs try/except"选择思路
+3. 类的继承可以下次简单复习一下
 
 ### 下次建议从哪里开始
 
-**Week 1 第2次会话**：Python 函数/类/装饰器 + 异常处理 + git 基本操作 + HTTP 基础
+**Week 1 第3次会话**：装饰器 + git 基本操作 + HTTP 基础 + Linux/Shell 常用命令
 
-建议先用 10 分钟复习今天的易错点（笔记第七节），再开始新内容。
-
-### 额外记录：Pi 框架学习穿插
-
-用户提出边学基础边了解 Pi 框架（Ascet Agent 的底层框架）。已完成：
-- 分析了 Pi 框架完整架构（4层：pi-ai → pi-agent-core → pi-coding-agent → ascet-extension）
-- 更新了 ROADMAP.md，在 W2/W3/W5 穿插 Pi 源码阅读
-- W2 新增 TypeScript 速成（为读 TS 源码准备）
-- 创建了 `projects/ascet-agent/pi-architecture.md` 架构分析文档
-- Pi 学习不单独开周，每周基础学习后用 30-60min 读对应源码
+建议先用 5-10 分钟复习今天的易错点（笔记第十二节），特别是 f-string 引号嵌套和异常处理逻辑。
 
 ---
 
 ## 历史会话记录
+
+### 2025-07-21（环境：公司 opencode）· Week 1 第2次会话
+- 今天学了：函数、类与面向对象、异常处理
+- 掌握情况：基本语法 OK；f-string引号嵌套、异常处理逻辑顺序需要巩固
+- 遗留问题：f-string嵌套、& vs and、print vs return
+- 下次起点：Week 1 第3次会话，先复习易错点再学装饰器+git+HTTP
 
 ### 2025-07-17（环境：公司 opencode）· Week 1 第1次会话
 - 今天学了：conda 环境、数据类型、类型标注、字符串操作、条件判断与循环

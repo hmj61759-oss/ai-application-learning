@@ -5,45 +5,53 @@
 
 ---
 
-## 当前任务：Week 1 · Python 基础（第2次会话）
+## 当前任务：Week 1 · Python 基础（第3次会话）
 
 **所属周次**：Week 1
 **预计时长**：1.5-2 小时
 
 ### 今日目标
 
-1. **复习（10分钟）**：回顾上次易错点
-   - `in` 的两种用法（列表完全匹配 vs 字符串子串匹配）
-   - `append(skill)` vs `append('skill')` 引号问题
-   - flag 标记变量模式
-2. **Python 函数**：
-   - 函数定义、参数、返回值
-   - 默认参数、关键字参数
-   - 类型标注在函数中的应用
-3. **Python 类与面向对象**：
-   - class 定义、`__init__`、self
-   - 属性和方法
-   - 简单继承
-4. **异常处理**：
-   - try/except/finally
-   - 自定义异常
-   - 什么时候该用异常处理
+1. **复习（5-10分钟）**：回顾上次易错点
+   - f-string 引号嵌套规则
+   - 异常处理的"判断条件 vs try/except"选择
+   - `&` vs `and`、`print` vs `return`
+2. **装饰器**：
+   - 装饰器是什么、为什么需要
+   - 写一个简单的装饰器（如计时器、日志装饰器）
+   - 面试常考：装饰器原理
+3. **git 基本操作**：
+   - add / commit / push / pull
+   - branch / checkout / merge
+   - 用 git 管理学习仓库
+4. **HTTP 基础**：
+   - 请求方法（GET/POST/PUT/DELETE）
+   - 状态码（200/400/404/500）
+   - 请求头/响应头
+5. **Linux/Shell 常用命令**（了解即可）：
+   - cd / ls / grep / cat / 管道符 |
 
 ### 今日产出
 
-- [ ] 在 `exercises/w01-python-basics/` 下完成第 4、5 道练习
-- [ ] 在 `notes/w01-python-basics.md` 追加函数/类/异常的笔记
-- [ ] 能独立写一个简单的类并使用
+- [ ] 在 `exercises/w01-python-basics/` 下完成第 7 道练习（装饰器）
+- [ ] 在 `notes/w01-python-basics.md` 追加装饰器/git/HTTP 的笔记
+- [ ] 能用 git 独立管理学习仓库
+- [ ] Week 1 收尾，准备进入 Week 2
 
 ### 下次任务预告
 
-Week 1 第3次会话：装饰器 + git 基本操作 + HTTP 基础 + Linux/Shell 常用命令
+Week 2 第1次会话：Python 异步编程 + FastAPI 基础 + TypeScript 速成（为读 Pi 源码准备）
 
 ---
 
 ## 任务历史
 
 > 每次会话结束后，将当前任务归档到此，并写上新任务。
+
+### 2025-07-21 · Week 1 第2次会话（已完成）
+- 学习内容：函数、类与面向对象、异常处理
+- 产出：3 道练习完成（04-functions.py / 05-class.py / 06-exception.py）；笔记已追加
+- 掌握情况：基本语法 OK；f-string引号嵌套、异常处理逻辑顺序需要巩固
 
 ### 2025-07-17 · Week 1 第1次会话（已完成）
 - 学习内容：conda 环境、数据类型、类型标注、字符串操作、条件判断与循环
