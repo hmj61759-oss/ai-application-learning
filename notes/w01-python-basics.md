@@ -2,6 +2,7 @@
 
 > 第1次会话：2025-07-17（公司 opencode）— conda 环境、数据类型、类型标注、条件判断与循环
 > 第2次会话：2025-07-21（公司 opencode）— 函数、类与面向对象、异常处理
+> 第3次会话：2025-07-23（公司 opencode）— 装饰器、git、HTTP 基础、Linux/Shell
 
 ---
 
@@ -497,11 +498,273 @@ def get_skill(self, index: int) -> str:
 
 ---
 
-## 十二、我的易错点总结（第2次会话）
+# 第3次会话：装饰器、git、HTTP 基础、Linux/Shell
 
-1. **`&` 代替 `and`** → 条件判断用 `and`/`or`/`not`，不用 `&`/`|`（位运算符）
-2. **`return skill` 返回错值** → 函数签名说返回 list，就要 return list，不是 return 字符串
-3. **f-string 引号嵌套** → 内外引号要不同：`f"{prefix}：{', '.join(skills)}"`
-4. **`except:` 空捕获** → 要写具体异常类型，如 `except IndexError:`
-5. **异常处理逻辑顺序** → 空列表访问索引也会抛 IndexError，要先用 if 判断空列表
-6. **`print` 和 `return` 混淆** → print 只是打印，return 才是返回值给调用方
+> 日期：2025-07-23
+> 环境：公司（opencode）
+
+---
+
+## 十三、装饰器
+
+### 什么是装饰器？
+
+**装饰器**是在不修改原函数的情况下，给函数增加额外功能的函数。用 `@` 语法使用。
+
+```python
+def log_call(func):
+    def wrapper(*args, **kwargs):
+        print(f"开始调用 {func.__name__}")
+        result = func(*args, **kwargs)
+        print(f"结束调用 {func.__name__}")
+        return result
+    return wrapper
+
+@log_call
+def greet(name: str) -> str:
+    return f"你好，{name}"
+
+greet("mengjie")
+# 输出：
+# 开始调用 greet
+# 结束调用 greet
+```
+
+### 装饰器本质
+
+- `@装饰器名` 等价于 `函数 = 装饰器(函数)`
+- 装饰器接收一个函数，返回一个新函数
+- `*args, **kwargs`：接收任意参数，原样传给原函数
+- `return func(*args, **kwargs)`：调用原函数并返回结果
+
+### 实用例子：计时装饰器
+
+```python
+import time
+
+def timer(func):
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print(f"{func.__name__} 执行耗时：{end - start:.2f}秒")
+        return result
+    return wrapper
+
+@timer
+def slow_function():
+    time.sleep(1)
+    return "完成"
+```
+
+### 面试高频
+
+**Q：装饰器是什么？**
+A：装饰器是一个接收函数返回函数的函数，用 @ 语法使用，作用是在不修改原函数的情况下增加功能，常用于日志、计时、权限校验等。
+
+---
+
+## 十四、git 基本操作
+
+### 核心概念
+
+```
+工作区（你的电脑文件）
+    ↓ git add
+暂存区（准备提交的文件）
+    ↓ git commit
+本地仓库（提交历史）
+    ↓ git push
+远程仓库（GitHub）
+```
+
+### 常用命令
+
+```bash
+# 基本流程
+git add -A              # 把所有改动加入暂存区
+git commit -m "说明"     # 提交到本地仓库
+git push                # 推送到 GitHub
+git pull                # 从 GitHub 拉取最新
+
+# 查看状态
+git status              # 看哪些文件改了
+git log --oneline -5    # 看最近5次提交
+
+# 分支操作
+git branch              # 查看分支
+git branch feature      # 创建分支
+git checkout feature    # 切换到分支
+git checkout main       # 切回主分支
+git merge feature       # 把 feature 合并到 main
+```
+
+### 分支的作用
+
+- **隔离开发**：新功能在 feature 分支开发，不影响 main 的稳定性
+- **多人协作**：每个人在自己的分支开发，互不干扰
+- **修复 bug**：紧急 bug 从 main 拉分支修复，不影响其他开发
+
+### 面试回答模板
+
+**Q：你怎么用 git 协作？**
+A：在 main 分支保持稳定，每个功能开一个 feature 分支开发，开发完合并回 main。用 git pull 同步远程，git push 推送本地改动。
+
+**Q：git init 和 git clone 的区别？**
+A：`git init` 是从零创建一个新仓库，`git clone` 是从远程复制一个已有仓库。
+
+**Q：什么时候用分支？**
+A：开发新功能、修 bug、多人协作时用分支。主分支保持稳定，每个功能开一个 feature 分支，开发完合并回主分支。
+
+---
+
+## 十五、HTTP 基础
+
+### HTTP 请求结构
+
+```
+POST https://api.openai.com/v1/chat/completions
+Authorization: Bearer sk-xxx
+Content-Type: application/json
+
+{
+  "model": "gpt-4",
+  "messages": [{"role": "user", "content": "你好"}]
+}
+```
+
+| 部分 | 说明 | 例子 |
+|------|------|------|
+| **方法** | 要做什么操作 | `POST`（发送数据） |
+| **URL** | 请求哪个地址 | `https://api.openai.com/v1/chat/completions` |
+| **请求头** | 附加信息 | `Authorization: Bearer sk-xxx` |
+| **请求体** | 发送的数据 | `{"model": "gpt-4", ...}` |
+
+### 请求方法（面试高频）
+
+| 方法 | 作用 | AI 场景 |
+|------|------|---------|
+| `GET` | 获取数据 | 获取模型列表 |
+| `POST` | 发送数据 | **调用 LLM API（最常用）** |
+| `PUT` | 更新数据 | 更新配置 |
+| `DELETE` | 删除数据 | 删除会话 |
+
+**记忆口诀**：GET 取、POST 发、PUT 改、DELETE 删
+
+### 状态码（面试高频）
+
+| 状态码 | 含义 | 说明 |
+|--------|------|------|
+| `200` | 成功 | 请求正常处理 |
+| `400` | 客户端错误 | 参数不对、JSON 格式错 |
+| `401` | 未授权 | API Key 错误或过期 |
+| `404` | 找不到 | URL 不存在 |
+| `429` | 请求太多 | **调用 LLM 超过频率限制** |
+| `500` | 服务器错误 | LLM 服务挂了 |
+
+**4xx vs 5xx**：4xx 是客户端的问题（你发错了），5xx 是服务器的问题（服务挂了）。
+
+### 调用 LLM API 流程
+
+```
+你的代码                          LLM 服务器
+   │                                 │
+   │  POST /v1/chat/completions      │
+   │  Header: Authorization: Bearer  │
+   │  Body: {"model":"gpt-4", ...}   │
+   │ ──────────────────────────────→ │
+   │                                 │
+   │  200 OK                         │
+   │  {"choices":[{"message":...}]}  │
+   │ ←────────────────────────────── │
+   │                                 │
+```
+
+### 面试回答模板
+
+**Q：你怎么调用 LLM API？**
+A：用 HTTP POST 请求，在请求头带 API Key 做鉴权，请求体用 JSON 格式传 model 和 messages，服务器返回 JSON 格式的响应。
+
+---
+
+## 十六、Linux/Shell 常用命令
+
+> 了解即可，面试可能问
+
+### 常用命令速查
+
+| 命令 | 作用 | Windows 对应 |
+|------|------|-------------|
+| `cd` | 切换目录 | `cd`（一样） |
+| `ls` | 列出文件 | `dir` 或 `ls`（PowerShell 支持） |
+| `cat` | 查看文件内容 | `cat`（PowerShell 支持） |
+| `grep` | 搜索文件内容 | `Select-String` |
+| `mkdir` | 创建目录 | `mkdir`（一样） |
+| `rm` | 删除文件 | `Remove-Item` |
+| `cp` | 复制 | `Copy-Item` |
+| `mv` | 移动/重命名 | `Move-Item` |
+
+### 管道符 `|`
+
+把前一个命令的输出，作为后一个命令的输入：
+```bash
+ls | grep "py"        # 列出文件并筛选包含 "py" 的
+cat log.txt | grep "error"  # 查看日志，筛选错误信息
+```
+
+### 面试回答
+
+**Q：你熟悉 Linux 命令吗？**
+A：常用 cd/ls/cat/grep/mkdir，会用管道符组合命令。部署时用过 ps 查进程。
+
+---
+
+## 十七、面试速查卡（第3次会话新增）
+
+| 问题 | 参考回答 |
+|------|----------|
+| 装饰器是什么？ | 装饰器是接收函数返回函数的函数，用 @ 语法，作用是不修改原函数增加功能，常用于日志/计时/权限校验 |
+| `*args, **kwargs` 作用？ | 接收任意参数，让装饰器能用在任何函数上 |
+| git 工作流程？ | git add → git commit → git push；git pull 同步远程 |
+| 什么时候用分支？ | 开发新功能/修 bug/多人协作时，主分支保持稳定 |
+| HTTP 方法区别？ | GET 取数据，POST 发数据（LLM API 用这个），PUT 改数据，DELETE 删数据 |
+| 常见状态码？ | 200 成功，401 未授权，404 找不到，429 请求太多，500 服务器错误 |
+| 4xx vs 5xx 区别？ | 4xx 客户端错误（你发错了），5xx 服务器错误（服务挂了） |
+| 怎么调用 LLM API？ | HTTP POST 请求，Header 带 API Key，Body 传 JSON 数据 |
+
+---
+
+## 十八、我的易错点总结（第3次会话）
+
+1. **git 命令在错误目录** → 要在含 .git 文件夹的目录下执行
+2. **命令行参数格式** → `git add -A`（有横杠），`git checkout main`（空格分隔）
+3. **装饰器位置** → `print` 要在 wrapper 函数里（调用时执行），不是在装饰器函数里（定义时执行）
+4. **装饰器返回值** → 要 `return wrapper`，不是 `return 字符串`
+5. **HTTP 方法混淆** → 调用 LLM API 用 POST（发送数据），不是 GET（获取数据）
+
+---
+
+## Week 1 总结
+
+### 学习内容回顾
+
+| 模块 | 核心知识点 |
+|------|-----------|
+| **环境管理** | conda 环境、虚拟环境、包管理 |
+| **Python 基础** | 数据类型、类型标注、字符串操作、控制流 |
+| **Python 进阶** | 函数、类与面向对象、异常处理、装饰器 |
+| **计算机基础** | git 版本控制、HTTP 协议、Linux 命令 |
+
+### 面试准备要点
+
+1. **Python 语法**：类型标注、函数参数、类定义、异常处理
+2. **git 操作**：分支管理、协作流程
+3. **HTTP 基础**：请求方法、状态码、LLM API 调用流程
+4. **装饰器原理**：实现方式、应用场景
+
+### 下周预告（Week 2）
+
+- **Python 异步编程**：async/await（LLM API 调用常用）
+- **FastAPI 基础**：AI 应用后端首选框架
+- **TypeScript 速成**：为读 Pi 框架源码准备
+- **Pi 框架学习**：开始读 `pi-ai` 模块源码
