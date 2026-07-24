@@ -7,43 +7,48 @@
 
 ## 最近一次会话
 
-- **日期**：2025-07-23
+- **日期**：2025-07-24
 - **环境**：公司（opencode）
 - **时长**：约 2 小时
-- **所属周次**：Week 1 第3次会话（Week 1 完结）
+- **所属周次**：Week 2 第1次会话
 
 ### 今天学了什么
 
-1. **复习**：f-string 引号嵌套、异常处理逻辑、& vs and（全部答对，已掌握）
-2. **装饰器**：原理、语法、@ 语法糖、实用例子（计时装饰器）
-3. **git 基本操作**：工作流、分支管理、多人协作概念
-4. **HTTP 基础**：请求结构、方法（GET/POST）、状态码（200/401/429/500）
-5. **Linux/Shell 常用命令**：cd/ls/cat/grep/mkdir，管道符 |
+1. **Python 异步编程**：async/await 语法、并发处理、asyncio 模块
+2. **FastAPI 基础**：路由定义、Pydantic 数据校验、API 文档自动生成
+3. **FastAPI 部署**：uvicorn 启动、URL 路径映射、模块导入路径问题
+4. **实战**：创建了 /ask POST 接口，实现了 AI 问答 API
 
 ### 掌握情况
 
-- ✅ **OK**：装饰器原理、git 工作流、HTTP 方法和状态码
-- ✅ **OK**：复习内容全部答对（f-string、异常处理、& vs and）
+- ✅ **OK**：异步编程概念、FastAPI 基本用法、API 文档使用
+- ✅ **OK**：Pydantic 数据校验、路由定义
 - ⚠️ **需要复习**：
-  - git 命令要在正确目录下执行（含 .git 文件夹）
-  - 命令行参数格式（-A 要有横杠，命令间用空格分隔）
-  - 装饰器中 print 的位置（在 wrapper 里，不是装饰器函数里）
+  - 模块导入路径规则（文件名不能包含连字符）
+  - Python 语法细节（return 后需要空格）
+  - FastAPI 工作机制（路由扫描、文档生成）
 
 ### 遗留问题 / 下次要复习的点
 
-1. 命令行参数格式要记住（-A、空格分隔）
-2. 装饰器的执行时机（wrapper vs 装饰器函数）
-3. HTTP 方法：调用 LLM API 用 POST 不是 GET
+1. 模块导入路径规则要记住（文件名用下划线，不用连字符）
+2. Python 语法细节（return 后的空格）
+3. FastAPI 自动功能的理解（文档生成、数据校验）
 
 ### 下次建议从哪里开始
 
-**Week 2 第1次会话**：Python 异步编程 + FastAPI 基础 + TypeScript 速成（为读 Pi 源码准备）
+**Week 2 第2次会话**：TypeScript 速成 + Pi 框架源码阅读（`pi-ai` README）
 
-建议先用 10 分钟复习 Week 1 的面试速查卡，巩固基础知识。
+建议先用 10 分钟复习今天的异步编程和 FastAPI 概念，再开始 TypeScript 学习。
 
 ---
 
 ## 历史会话记录
+
+### 2025-07-24（环境：公司 opencode）· Week 2 第1次会话
+- 今天学了：Python 异步编程、FastAPI 基础、API 部署
+- 掌握情况：异步和 FastAPI OK；模块路径、语法细节需要巩固
+- 遗留问题：模块导入路径、return 语法、FastAPI 机制
+- 下次起点：Week 2 第2次会话，先复习异步/FastAPI 再学 TypeScript
 
 ### 2025-07-23（环境：公司 opencode）· Week 1 第3次会话（Week 1 完结）
 - 今天学了：装饰器、git、HTTP 基础、Linux/Shell

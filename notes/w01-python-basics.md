@@ -640,6 +640,13 @@ Content-Type: application/json
 | **请求头** | 附加信息 | `Authorization: Bearer sk-xxx` |
 | **请求体** | 发送的数据 | `{"model": "gpt-4", ...}` |
 
+### 请求头（常用）
+| 请求头 | 作用 | AI 场景
+|------|------|------|
+| Authorization | 身份验证 | Bearer sk-xxx（API Key）
+| Content-Type | 数据格式 | application/json（发送 JSON）
+| Accept | 期望接收的格式 | application/json
+
 ### 请求方法（面试高频）
 
 | 方法 | 作用 | AI 场景 |
@@ -679,6 +686,8 @@ Content-Type: application/json
    │ ←────────────────────────────── │
    │                                 │
 ```
+### opencode.json 是 HTTP 协议吗？
+
 
 ### 面试回答模板
 
@@ -734,13 +743,110 @@ A：常用 cd/ls/cat/grep/mkdir，会用管道符组合命令。部署时用过 
 
 ---
 
-## 十八、我的易错点总结（第3次会话）
+## 十八、opencode.json 与 HTTP 协议
+
+### opencode.json 是什么？
+
+opencode.json 是 **opencode 的配置文件**，告诉 opencode：
+1. 有哪些 LLM 可以用（provider）
+2. 怎么连接这些 LLM（baseURL + apiKey）
+3. 每个 provider 有哪些模型（models）
+
+### 与 HTTP 的关系
+
+opencode 调用 LLM 时，**底层就是发 HTTP 请求**。opencode.json 里的配置就是 HTTP 请求的参数：
+
+```json
+{
+  "baseURL": "https://cccn.apac.bosch.com:37495/bdo-llmfarm-llm/v1",
+  "apiKey": "3ec...",
+  "headers": {
+    "Authorization": "Bearer 3ec..."
+  }
+}
+```
+
+对应到 HTTP 请求：
+
+```
+POST https://cccn.apac.bosch.com:37495/bdo-llmfarm-llm/v1/chat/completions
+Authorization: Bearer 3ec...
+Content-Type: application/json
+
+{"model": "glm-5.2", "messages": [...]}
+```
+
+| opencode.json | HTTP 请求 |
+|---------------|----------|
+| `baseURL` | 请求的 URL 地址 |
+| `apiKey` | 请求头里的 Authorization |
+| `headers` | 额外的请求头 |
+| `models` | 请求体里可以填的 model 值 |
+
+### 为什么放在项目文件夹里？
+
+opencode 的设计是**项目级配置**：
+
+```
+ai-application-learning/
+├── opencode.json    ← 只对这个项目生效
+├── notes/
+└── exercises/
+```
+
+**好处**：
+1. **不同项目用不同 LLM**：公司项目用 BDO 网关，个人项目可以用 OpenAI
+2. **配置跟着项目走**：git clone 下来就有配置（但 API Key 被 .gitignore 排除了）
+3. **不污染全局**：不影响其他项目的配置
+
+### 配置文件结构拆解
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",  // 配置规范地址（告诉编辑器怎么提示）
+  
+  "provider": {                    // 定义所有 LLM 提供商
+    "bdo-gateway": {               // 提供商名字（自定义）
+      "npm": "@ai-sdk/openai-compatible",  // 用哪个 npm 包来调用（OpenAI 兼容协议）
+      "name": "公司BDO网关",        // 显示名称
+      "options": {
+        "baseURL": "https://...",  // ← HTTP 请求的 URL
+        "apiKey": "3ec...",        // ← HTTP 请求的鉴权
+        "headers": {               // ← HTTP 请求头
+          "Authorization": "Bearer 3ec..."
+        }
+      },
+      "models": {                  // 这个提供商有哪些模型可用
+        "glm-5.2": { "name": "GLM 5.2" },
+        "gpt-5": { "name": "GPT-5" }
+      }
+    }
+  }
+}
+```
+
+### 为什么需要 `npm` 字段？
+
+```json
+"npm": "@ai-sdk/openai-compatible"
+```
+
+这告诉 opencode 用哪个**适配器包**来发 HTTP 请求。不同 LLM 提供商的 API 格式可能不同：
+- OpenAI 用 `/v1/chat/completions` 格式
+- Anthropic 用 `/v1/messages` 格式
+- `@ai-sdk/openai-compatible` 表示这个提供商**兼容 OpenAI 格式**
+
+> **关联 Pi 框架**：还记得 Pi 架构里的 `pi-ai` 包吗？它做的就是同样的事——统一封装多个 LLM 提供商，屏蔽不同 API 格式的差异。opencode.json 里的 provider 配置，和 Pi 的 Provider 概念是一样的。
+
+---
+
+## 十九、我的易错点总结（第3次会话）
 
 1. **git 命令在错误目录** → 要在含 .git 文件夹的目录下执行
 2. **命令行参数格式** → `git add -A`（有横杠），`git checkout main`（空格分隔）
 3. **装饰器位置** → `print` 要在 wrapper 函数里（调用时执行），不是在装饰器函数里（定义时执行）
 4. **装饰器返回值** → 要 `return wrapper`，不是 `return 字符串`
-5. **HTTP 方法混淆** → 调用 LLM API 用 POST（发送数据），不是 GET（获取数据）
+5. **HTTP 方法混淆** → 调用 LLM API 用 POST（发送数据），不是 GET（获取数据），GET 是"拿"（不发送数据），POST 是"给"（发送 JSON 数据）。调用 LLM 要把 prompt 发给服务器，所以是 POST。
 
 ---
 

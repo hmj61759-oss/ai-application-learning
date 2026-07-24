@@ -5,45 +5,49 @@
 
 ---
 
-## 当前任务：Week 2 · Python 异步编程 + FastAPI + TypeScript 速成（第1次会话）
+## 当前任务：Week 2 · TypeScript 速成 + Pi 框架源码阅读（第2次会话）
 
 **所属周次**：Week 2
 **预计时长**：1.5-2 小时
 
 ### 今日目标
 
-1. **复习（10分钟）**：Week 1 面试速查卡
-   - 装饰器原理
-   - git 工作流
-   - HTTP 方法和状态码
-2. **Python 异步编程**：
-   - 为什么需要异步（并发处理多个请求）
-   - async/await 语法
-   - asyncio 模块基础
-3. **FastAPI 基础**：
-   - 为什么 AI 应用首选 FastAPI
-   - 路由定义、请求/响应处理
-   - Pydantic 数据校验
-4. **TypeScript 速成**（为读 Pi 源码准备）：
+1. **复习（10分钟）**：Week 2 第1次会话内容
+   - 异步编程概念
+   - FastAPI 基本用法
+   - API 文档机制
+2. **TypeScript 速成**（为读 Pi 源码准备）：
    - 基本类型（string/number/boolean）
    - interface 和 type
    - 泛型基础
+   - ES Module（import/export）
+3. **Pi 框架源码阅读**：
+   - 阅读 `pi-ai` README（理解统一 LLM API 设计）
+   - 对比 FastAPI，理解跨语言设计模式
+4. **关联学习**：
+   - 将 TypeScript 知识与 Python 对比
+   - 将 Pi 框架与 FastAPI 对比
 
 ### 今日产出
 
-- [ ] 在 `exercises/w02-fastapi-basics/` 下完成第 1 道练习
-- [ ] 在 `notes/w02-fastapi-basics.md` 记录关键知识点
-- [ ] 能用 FastAPI 写一个简单的 API 接口
+- [ ] 在 `exercises/w02-typescript-basics/` 下完成第 1 遌练习
+- [ ] 在 `notes/w02-typescript-basics.md` 记录关键知识点
+- [ ] 理解 `pi-ai` 模块的设计理念
 
 ### 下次任务预告
 
-Week 2 第2次会话：TypeScript 进阶 + Pi 框架源码阅读（`pi-ai` README）
+Week 2 第3次会话：深入 Pi 框架源码（`pi-agent-core` + `ascet-extension`）
 
 ---
 
 ## 任务历史
 
 > 每次会话结束后，将当前任务归档到此，并写上新任务。
+
+### 2025-07-24 · Week 2 第1次会话
+- 学习内容：Python 异步编程、FastAPI 基础、API 部署
+- 产出：创建了 /ask API 接口；笔记已写入 w02-fastapi-basics.md
+- 掌握情况：异步和 FastAPI OK；模块路径、语法细节需要巩固
 
 ### 2025-07-23 · Week 1 第3次会话（Week 1 完结）
 - 学习内容：装饰器、git、HTTP 基础、Linux/Shell
