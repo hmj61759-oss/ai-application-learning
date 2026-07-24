@@ -5,44 +5,45 @@
 
 ---
 
-## 当前任务：Week 2 · TypeScript 速成 + Pi 框架源码阅读（第2次会话）
+## 当前任务：Week 2 · Pi 框架源码深入（第3次会话）
 
 **所属周次**：Week 2
 **预计时长**：1.5-2 小时
 
 ### 今日目标
 
-1. **复习（10分钟）**：Week 2 第1次会话内容
-   - 异步编程概念
-   - FastAPI 基本用法
-   - API 文档机制
-2. **TypeScript 速成**（为读 Pi 源码准备）：
-   - 基本类型（string/number/boolean）
-   - interface 和 type
-   - 泛型基础
-   - ES Module（import/export）
-3. **Pi 框架源码阅读**：
-   - 阅读 `pi-ai` README（理解统一 LLM API 设计）
-   - 对比 FastAPI，理解跨语言设计模式
-4. **关联学习**：
-   - 将 TypeScript 知识与 Python 对比
-   - 将 Pi 框架与 FastAPI 对比
+1. **复习（10分钟）**：Week 2 第2次会话内容
+   - TypeScript 基础语法
+   - Pi 框架三层架构
+   - Provider 概念
+2. **Pi 框架 pi-agent-core 模块**：
+   - 阅读 `pi-agent-core` README
+   - 理解 Agent 循环：prompt → LLM → 工具调用 → 结果 → 下一轮
+   - 理解 AgentState、AgentTool、AgentEvent 类型
+3. **关联学习**：
+   - 将 Agent 循环与 FastAPI 异步处理对比
+   - 理解 AgentTool 和 Pydantic BaseModel 的关系
 
 ### 今日产出
 
-- [ ] 在 `exercises/w02-typescript-basics/` 下完成第 1 遌练习
-- [ ] 在 `notes/w02-typescript-basics.md` 记录关键知识点
-- [ ] 理解 `pi-ai` 模块的设计理念
+- [ ] 在 `notes/w02-typescript-pi.md` 追加 agent-core 笔记
+- [ ] 理解 Agent 循环的完整流程
+- [ ] 能画出 Agent 循环的事件序列图
 
 ### 下次任务预告
 
-Week 2 第3次会话：深入 Pi 框架源码（`pi-agent-core` + `ascet-extension`）
+Week 3：LLM 基础原理 + Ascet 项目初探 + Pi 框架 agent-core 深入
 
 ---
 
 ## 任务历史
 
 > 每次会话结束后，将当前任务归档到此，并写上新任务。
+
+### 2025-07-24 · Week 2 第2次会话
+- 学习内容：TypeScript 速成、Pi 框架 pi-ai 模块
+- 产出：练习 1 完成；笔记已写入 w02-typescript-pi.md
+- 掌握情况：TS 基础和 Pi 架构 OK；JS 语法细节需要巩固
 
 ### 2025-07-24 · Week 2 第1次会话
 - 学习内容：Python 异步编程、FastAPI 基础、API 部署

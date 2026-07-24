@@ -10,39 +10,45 @@
 - **日期**：2025-07-24
 - **环境**：公司（opencode）
 - **时长**：约 2 小时
-- **所属周次**：Week 2 第1次会话
+- **所属周次**：Week 2 第2次会话
 
 ### 今天学了什么
 
-1. **Python 异步编程**：async/await 语法、并发处理、asyncio 模块
-2. **FastAPI 基础**：路由定义、Pydantic 数据校验、API 文档自动生成
-3. **FastAPI 部署**：uvicorn 启动、URL 路径映射、模块导入路径问题
-4. **实战**：创建了 /ask POST 接口，实现了 AI 问答 API
+1. **TypeScript 速成**：基本类型、interface、type、泛型、ES Module，对比 Python 语法
+2. **Pi 框架 pi-ai 模块**：三层架构（Models → Provider → API Implementation）、Quick Start 代码解读
+3. **跨语言对比**：TypeBox vs Pydantic、TypeScript vs Python 类型系统、Pi Provider vs opencode.json
 
 ### 掌握情况
 
-- ✅ **OK**：异步编程概念、FastAPI 基本用法、API 文档使用
-- ✅ **OK**：Pydantic 数据校验、路由定义
+- ✅ **OK**：TypeScript 基本语法、interface/type 概念
+- ✅ **OK**：Pi 框架三层架构、Provider 概念
+- ✅ **OK**：TypeBox vs Pydantic 对比
 - ⚠️ **需要复习**：
-  - 模块导入路径规则（文件名不能包含连字符）
-  - Python 语法细节（return 后需要空格）
-  - FastAPI 工作机制（路由扫描、文档生成）
+  - JS 变量声明规则（let/const）
+  - JS 对象 key 不加引号
+  - 泛型的实际应用场景
 
 ### 遗留问题 / 下次要复习的点
 
-1. 模块导入路径规则要记住（文件名用下划线，不用连字符）
-2. Python 语法细节（return 后的空格）
-3. FastAPI 自动功能的理解（文档生成、数据校验）
+1. JS/TS 语法细节（let/const、反引号字符串模板）
+2. Pi 框架的流式事件类型
+3. Provider 模式的实际应用
 
 ### 下次建议从哪里开始
 
-**Week 2 第2次会话**：TypeScript 速成 + Pi 框架源码阅读（`pi-ai` README）
+**Week 2 第3次会话**：深入 Pi 框架源码（`pi-agent-core` + Agent 循环）
 
-建议先用 10 分钟复习今天的异步编程和 FastAPI 概念，再开始 TypeScript 学习。
+建议先用 10 分钟复习 TypeScript 基础和 Pi 三层架构，再开始读 agent-core 源码。
 
 ---
 
 ## 历史会话记录
+
+### 2025-07-24（环境：公司 opencode）· Week 2 第2次会话
+- 今天学了：TypeScript 速成、Pi 框架 pi-ai 模块
+- 掌握情况：TS 基础和 Pi 架构 OK；JS 语法细节需要巩固
+- 遗留问题：let/const、对象 key、泛型应用
+- 下次起点：Week 2 第3次会话，先复习 TS 再读 agent-core
 
 ### 2025-07-24（环境：公司 opencode）· Week 2 第1次会话
 - 今天学了：Python 异步编程、FastAPI 基础、API 部署
